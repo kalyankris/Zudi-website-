@@ -1,0 +1,901 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Zudi — We Build. We Grow. We Scale.</title>
+<meta name="description" content="Zudi is a creative and digital agency specializing in web, digital, production, influencer marketing, social media, spatial design and talent management.">
+<meta name="theme-color" content="#0a0a0a">
+<meta property="og:title" content="Zudi — We Build. We Grow. We Scale.">
+<meta property="og:description" content="Zudi is a creative and digital agency specializing in web, digital, production, influencer marketing, social media, spatial design and talent management.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://zudi.co.in">
+<meta property="og:image" content="https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?w=1200&q=80">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #050505;
+  --bg-elevated: #0c0c0c;
+  --surface: rgba(255,255,255,0.03);
+  --surface-strong: rgba(255,255,255,0.06);
+  --border: rgba(255,255,255,0.08);
+  --border-strong: rgba(255,255,255,0.14);
+  --text: #f5f5f5;
+  --text-muted: #a1a1aa;
+  --text-dim: #71717a;
+  --accent: #ff6b00;
+  --accent-soft: #ff8c33;
+  --accent-glow: rgba(255,107,0,0.35);
+  --glass: rgba(18,18,18,0.65);
+  --radius: 20px;
+  --radius-sm: 12px;
+  --radius-lg: 28px;
+  --nav-h: 64px;
+  --ease: cubic-bezier(0.22,1,0.36,1);
+  --ease-out: cubic-bezier(0.16,1,0.3,1);
+}
+
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+body{
+  font-family:'Inter',system-ui,-apple-system,sans-serif;
+  background:var(--bg);
+  color:var(--text);
+  line-height:1.55;
+  overflow-x:hidden;
+  -webkit-font-smoothing:antialiased;
+}
+img{max-width:100%;height:auto;display:block}
+a{color:inherit;text-decoration:none}
+button{font:inherit;border:none;cursor:pointer;background:none;color:inherit}
+ul{list-style:none}
+.container{width:100%;max-width:1200px;margin:0 auto;padding:0 20px}
+@media(min-width:768px){.container{padding:0 32px}}
+@media(min-width:1024px){.container{padding:0 40px}}
+
+/* NAV */
+.nav{
+  position:fixed;top:0;left:0;right:0;z-index:1000;
+  height:var(--nav-h);
+  display:flex;align-items:center;
+  transition:background .35s var(--ease),backdrop-filter .35s,border-color .35s;
+  border-bottom:1px solid transparent;
+}
+.nav.scrolled{
+  background:var(--glass);
+  backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);
+  border-bottom-color:var(--border);
+}
+.nav-inner{
+  width:100%;max-width:1200px;margin:0 auto;padding:0 20px;
+  display:flex;align-items:center;justify-content:space-between;
+}
+.logo{
+  display:flex;align-items:center;gap:10px;
+  font-family:'Space Grotesk',sans-serif;
+  font-weight:700;font-size:1.35rem;letter-spacing:-0.02em;
+}
+.logo-mark{
+  width:36px;height:36px;border-radius:10px;
+  background:linear-gradient(135deg,var(--accent),#ff3d00);
+  display:grid;place-items:center;
+  font-size:0.85rem;font-weight:800;color:#fff;
+  box-shadow:0 0 24px var(--accent-glow);
+}
+.nav-links{display:none;gap:28px;align-items:center}
+.nav-links a{
+  font-size:0.9rem;font-weight:500;color:var(--text-muted);
+  transition:color .25s;
+}
+.nav-links a:hover{color:var(--text)}
+.nav-cta{
+  display:none;
+  padding:10px 20px;border-radius:999px;
+  background:var(--accent);color:#fff;font-weight:600;font-size:0.875rem;
+  transition:transform .25s var(--ease),box-shadow .25s;
+  box-shadow:0 0 0 0 var(--accent-glow);
+}
+.nav-cta:hover{transform:translateY(-1px);box-shadow:0 8px 28px var(--accent-glow)}
+.menu-btn{
+  width:44px;height:44px;border-radius:12px;
+  display:grid;place-items:center;
+  background:var(--surface);border:1px solid var(--border);
+}
+.menu-btn span{
+  display:block;width:18px;height:2px;background:var(--text);
+  position:relative;transition:background .2s;
+}
+.menu-btn span::before,.menu-btn span::after{
+  content:'';position:absolute;left:0;width:18px;height:2px;background:var(--text);
+  transition:transform .3s var(--ease);
+}
+.menu-btn span::before{top:-6px}
+.menu-btn span::after{top:6px}
+.menu-btn.open span{background:transparent}
+.menu-btn.open span::before{transform:translateY(6px) rotate(45deg)}
+.menu-btn.open span::after{transform:translateY(-6px) rotate(-45deg)}
+
+.mobile-menu{
+  position:fixed;inset:0;z-index:999;
+  background:rgba(5,5,5,0.97);
+  backdrop-filter:blur(24px);-webkit-backdrop-filter:blur(24px);
+  display:flex;flex-direction:column;justify-content:center;align-items:center;gap:28px;
+  opacity:0;visibility:hidden;pointer-events:none;
+  transition:opacity .35s var(--ease),visibility .35s;
+}
+.mobile-menu.open{opacity:1;visibility:visible;pointer-events:auto}
+.mobile-menu a{
+  font-family:'Space Grotesk',sans-serif;
+  font-size:1.75rem;font-weight:600;letter-spacing:-0.02em;
+  color:var(--text-muted);transition:color .25s;
+}
+.mobile-menu a:hover{color:var(--accent)}
+.mobile-menu .menu-cta{
+  margin-top:12px;padding:14px 32px;border-radius:999px;
+  background:var(--accent);color:#fff;font-size:1rem;font-weight:600;
+}
+
+@media(min-width:768px){
+  .nav-links{display:flex}
+  .nav-cta{display:inline-flex}
+  .menu-btn{display:none}
+}
+
+/* HERO */
+.hero{
+  min-height:100svh;
+  display:flex;flex-direction:column;justify-content:flex-end;
+  position:relative;overflow:hidden;
+  padding:calc(var(--nav-h) + 24px) 0 48px;
+}
+.hero-bg{
+  position:absolute;inset:0;z-index:0;
+}
+.hero-bg img{
+  width:100%;height:100%;object-fit:cover;
+  transform:scale(1.05);
+}
+.hero-overlay{
+  position:absolute;inset:0;z-index:1;
+  background:
+    linear-gradient(180deg,rgba(5,5,5,0.35) 0%,rgba(5,5,5,0.55) 40%,rgba(5,5,5,0.92) 78%,var(--bg) 100%),
+    radial-gradient(ellipse 80% 50% at 70% 30%,rgba(255,107,0,0.18),transparent 60%);
+}
+.hero-content{position:relative;z-index:2}
+.hero-badge{
+  display:inline-flex;align-items:center;gap:8px;
+  padding:6px 14px;border-radius:999px;
+  background:rgba(255,107,0,0.12);border:1px solid rgba(255,107,0,0.25);
+  font-size:0.75rem;font-weight:600;color:var(--accent-soft);
+  letter-spacing:0.04em;text-transform:uppercase;
+  margin-bottom:20px;
+}
+.hero-badge::before{
+  content:'';width:6px;height:6px;border-radius:50%;
+  background:var(--accent);box-shadow:0 0 10px var(--accent);
+  animation:pulse 2s infinite;
+}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:0.4}}
+.hero h1{
+  font-family:'Space Grotesk',sans-serif;
+  font-size:clamp(2.4rem,8vw,4.5rem);
+  font-weight:700;line-height:1.05;letter-spacing:-0.035em;
+  max-width:14ch;margin-bottom:18px;
+}
+.hero h1 span{color:var(--accent)}
+.hero-sub{
+  font-size:clamp(1rem,2.8vw,1.2rem);
+  color:var(--text-muted);max-width:34ch;margin-bottom:32px;
+  font-weight:400;
+}
+.hero-actions{display:flex;flex-wrap:wrap;gap:12px;margin-bottom:40px}
+.btn{
+  display:inline-flex;align-items:center;justify-content:center;gap:8px;
+  padding:14px 26px;border-radius:999px;
+  font-weight:600;font-size:0.95rem;
+  transition:transform .25s var(--ease),box-shadow .25s,background .25s;
+}
+.btn-primary{
+  background:var(--accent);color:#fff;
+  box-shadow:0 4px 24px var(--accent-glow);
+}
+.btn-primary:hover{transform:translateY(-2px);box-shadow:0 10px 36px var(--accent-glow)}
+.btn-ghost{
+  background:var(--surface);border:1px solid var(--border);
+  color:var(--text);
+}
+.btn-ghost:hover{background:var(--surface-strong);border-color:var(--border-strong)}
+.hero-stats{
+  display:grid;grid-template-columns:repeat(3,1fr);gap:12px;
+  max-width:420px;
+}
+.stat{
+  padding:14px 12px;border-radius:var(--radius-sm);
+  background:var(--surface);border:1px solid var(--border);
+  text-align:center;
+}
+.stat-num{
+  font-family:'Space Grotesk',sans-serif;
+  font-size:1.35rem;font-weight:700;color:var(--accent);line-height:1.2;
+}
+.stat-label{font-size:0.7rem;color:var(--text-dim);margin-top:2px;text-transform:uppercase;letter-spacing:0.04em}
+
+@media(min-width:768px){
+  .hero{padding-bottom:64px}
+  .hero-stats{max-width:480px;gap:16px}
+  .stat{padding:18px 16px}
+  .stat-num{font-size:1.6rem}
+}
+
+/* SECTIONS */
+section{padding:72px 0;position:relative}
+@media(min-width:768px){section{padding:100px 0}}
+.section-label{
+  display:inline-flex;align-items:center;gap:8px;
+  font-size:0.75rem;font-weight:600;letter-spacing:0.08em;
+  text-transform:uppercase;color:var(--accent);margin-bottom:12px;
+}
+.section-title{
+  font-family:'Space Grotesk',sans-serif;
+  font-size:clamp(1.75rem,5vw,2.75rem);
+  font-weight:700;letter-spacing:-0.03em;line-height:1.15;
+  margin-bottom:16px;
+}
+.section-desc{
+  font-size:1.05rem;color:var(--text-muted);max-width:52ch;margin-bottom:40px;
+}
+
+/* SERVICES */
+.services-grid{
+  display:grid;gap:16px;
+  grid-template-columns:1fr;
+}
+@media(min-width:640px){.services-grid{grid-template-columns:repeat(2,1fr)}}
+@media(min-width:1024px){.services-grid{grid-template-columns:repeat(3,1fr);gap:20px}}
+.service-card{
+  position:relative;border-radius:var(--radius);
+  overflow:hidden;background:var(--bg-elevated);
+  border:1px solid var(--border);
+  transition:transform .4s var(--ease),border-color .4s,box-shadow .4s;
+  isolation:isolate;
+}
+.service-card:hover{
+  transform:translateY(-6px);
+  border-color:rgba(255,107,0,0.3);
+  box-shadow:0 20px 50px rgba(0,0,0,0.4),0 0 40px rgba(255,107,0,0.08);
+}
+.service-img{
+  aspect-ratio:16/11;overflow:hidden;position:relative;
+}
+.service-img img{
+  width:100%;height:100%;object-fit:cover;
+  transition:transform .7s var(--ease);
+}
+.service-card:hover .service-img img{transform:scale(1.06)}
+.service-img::after{
+  content:'';position:absolute;inset:0;
+  background:linear-gradient(180deg,transparent 30%,rgba(5,5,5,0.85) 100%);
+}
+.service-body{padding:20px 20px 24px}
+.service-icon{
+  width:40px;height:40px;border-radius:12px;
+  background:rgba(255,107,0,0.12);border:1px solid rgba(255,107,0,0.2);
+  display:grid;place-items:center;margin-bottom:14px;
+  font-size:1.1rem;
+}
+.service-body h3{
+  font-family:'Space Grotesk',sans-serif;
+  font-size:1.2rem;font-weight:600;margin-bottom:8px;letter-spacing:-0.02em;
+}
+.service-body p{font-size:0.9rem;color:var(--text-muted);line-height:1.5}
+
+/* ABOUT */
+.about-grid{
+  display:grid;gap:40px;align-items:center;
+}
+@media(min-width:900px){.about-grid{grid-template-columns:1fr 1fr;gap:60px}}
+.about-visual{
+  position:relative;border-radius:var(--radius-lg);overflow:hidden;
+  aspect-ratio:4/5;max-height:520px;
+}
+.about-visual img{width:100%;height:100%;object-fit:cover}
+.about-visual::after{
+  content:'';position:absolute;inset:0;
+  background:linear-gradient(160deg,transparent 40%,rgba(255,107,0,0.15) 100%);
+  pointer-events:none;
+}
+.about-float{
+  position:absolute;bottom:20px;left:20px;right:20px;
+  padding:16px 18px;border-radius:var(--radius-sm);
+  background:var(--glass);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);
+  border:1px solid var(--border);
+  display:flex;align-items:center;gap:14px;
+}
+.about-float-num{
+  font-family:'Space Grotesk',sans-serif;
+  font-size:1.6rem;font-weight:700;color:var(--accent);line-height:1;
+}
+.about-float-text{font-size:0.8rem;color:var(--text-muted)}
+.about-content .section-desc{margin-bottom:28px}
+.about-points{display:flex;flex-direction:column;gap:16px}
+.about-point{
+  display:flex;gap:14px;align-items:flex-start;
+  padding:16px;border-radius:var(--radius-sm);
+  background:var(--surface);border:1px solid var(--border);
+}
+.about-point-icon{
+  width:36px;height:36px;border-radius:10px;flex-shrink:0;
+  background:rgba(255,107,0,0.12);display:grid;place-items:center;
+  font-size:1rem;
+}
+.about-point h4{font-size:0.95rem;font-weight:600;margin-bottom:2px}
+.about-point p{font-size:0.85rem;color:var(--text-muted)}
+
+/* WORK / MARQUEE */
+.work-section{padding-top:40px;overflow:hidden}
+.marquee-wrap{overflow:hidden;mask-image:linear-gradient(90deg,transparent,black 8%,black 92%,transparent)}
+.marquee{
+  display:flex;gap:16px;width:max-content;
+  animation:marquee 40s linear infinite;
+}
+.marquee:hover{animation-play-state:paused}
+@keyframes marquee{0%{transform:translateX(0)}100%{transform:translateX(-50%)}}
+.work-card{
+  width:280px;flex-shrink:0;border-radius:var(--radius);
+  overflow:hidden;border:1px solid var(--border);
+  background:var(--bg-elevated);
+}
+@media(min-width:768px){.work-card{width:340px}}
+.work-card img{width:100%;aspect-ratio:16/10;object-fit:cover}
+.work-card-body{padding:16px}
+.work-card-body h4{font-size:1rem;font-weight:600;margin-bottom:4px}
+.work-card-body span{font-size:0.8rem;color:var(--text-dim)}
+
+/* PROCESS */
+.process-grid{
+  display:grid;gap:16px;
+  grid-template-columns:1fr;
+}
+@media(min-width:640px){.process-grid{grid-template-columns:repeat(2,1fr)}}
+@media(min-width:1024px){.process-grid{grid-template-columns:repeat(4,1fr)}}
+.process-step{
+  padding:24px 20px;border-radius:var(--radius);
+  background:var(--surface);border:1px solid var(--border);
+  position:relative;overflow:hidden;
+  transition:border-color .3s,background .3s;
+}
+.process-step:hover{border-color:rgba(255,107,0,0.25);background:var(--surface-strong)}
+.process-num{
+  font-family:'Space Grotesk',sans-serif;
+  font-size:2.5rem;font-weight:700;color:rgba(255,107,0,0.15);
+  line-height:1;margin-bottom:12px;
+}
+.process-step h3{font-size:1.1rem;font-weight:600;margin-bottom:8px}
+.process-step p{font-size:0.9rem;color:var(--text-muted)}
+
+/* CTA */
+.cta-section{padding:40px 0 80px}
+.cta-box{
+  border-radius:var(--radius-lg);
+  padding:48px 28px;
+  background:
+    radial-gradient(ellipse 80% 80% at 50% 0%,rgba(255,107,0,0.18),transparent 60%),
+    var(--bg-elevated);
+  border:1px solid var(--border);
+  text-align:center;
+  position:relative;overflow:hidden;
+}
+.cta-box::before{
+  content:'';position:absolute;top:-50%;left:-50%;width:200%;height:200%;
+  background:radial-gradient(circle at 50% 50%,rgba(255,107,0,0.06),transparent 40%);
+  pointer-events:none;
+}
+.cta-box h2{
+  font-family:'Space Grotesk',sans-serif;
+  font-size:clamp(1.6rem,4.5vw,2.4rem);
+  font-weight:700;letter-spacing:-0.03em;margin-bottom:12px;
+  position:relative;
+}
+.cta-box p{
+  color:var(--text-muted);max-width:40ch;margin:0 auto 28px;
+  font-size:1.05rem;position:relative;
+}
+.cta-actions{display:flex;flex-wrap:wrap;gap:12px;justify-content:center;position:relative}
+
+/* FOOTER */
+footer{
+  padding:48px 0 32px;
+  border-top:1px solid var(--border);
+  background:var(--bg-elevated);
+}
+.footer-grid{
+  display:grid;gap:36px;
+  grid-template-columns:1fr;
+  margin-bottom:40px;
+}
+@media(min-width:640px){.footer-grid{grid-template-columns:1.4fr 1fr 1fr}}
+.footer-brand p{color:var(--text-muted);font-size:0.95rem;margin-top:12px;max-width:28ch}
+.footer-col h4{
+  font-size:0.8rem;font-weight:600;text-transform:uppercase;
+  letter-spacing:0.06em;color:var(--text-dim);margin-bottom:16px;
+}
+.footer-col a{
+  display:block;font-size:0.95rem;color:var(--text-muted);
+  margin-bottom:10px;transition:color .25s;
+}
+.footer-col a:hover{color:var(--accent)}
+.footer-bottom{
+  display:flex;flex-wrap:wrap;gap:12px;justify-content:space-between;
+  align-items:center;padding-top:24px;border-top:1px solid var(--border);
+  font-size:0.85rem;color:var(--text-dim);
+}
+.footer-social{display:flex;gap:12px}
+.footer-social a{
+  width:40px;height:40px;border-radius:12px;
+  background:var(--surface);border:1px solid var(--border);
+  display:grid;place-items:center;transition:border-color .25s,background .25s;
+}
+.footer-social a:hover{border-color:var(--accent);background:rgba(255,107,0,0.1)}
+
+/* REVEAL */
+.reveal{
+  opacity:0;transform:translateY(28px);
+  transition:opacity .7s var(--ease-out),transform .7s var(--ease-out);
+}
+.reveal.visible{opacity:1;transform:translateY(0)}
+.reveal-delay-1{transition-delay:.1s}
+.reveal-delay-2{transition-delay:.2s}
+.reveal-delay-3{transition-delay:.3s}
+
+/* REDUCED MOTION */
+@media(prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto}
+  .reveal{opacity:1;transform:none;transition:none}
+  .marquee{animation:none}
+  .hero-bg img{transform:none}
+  .service-card:hover{transform:none}
+  .service-card:hover .service-img img{transform:none}
+  .btn-primary:hover,.nav-cta:hover{transform:none}
+  .hero-badge::before{animation:none}
+}
+
+/* DESKTOP TWEAKS */
+@media(min-width:1024px){
+  .hero{justify-content:center;padding-top:calc(var(--nav-h) + 40px)}
+}
+</style>
+</head>
+<body>
+<!-- NAV -->
+<header class="nav" id="nav">
+  <div class="nav-inner">
+    <a href="#" class="logo">
+      <span class="logo-mark">Z</span>
+      <span>Zudi</span>
+    </a>
+    <nav class="nav-links">
+      <a href="#services">Services</a>
+      <a href="#about">About</a>
+      <a href="#work">Work</a>
+      <a href="#process">Process</a>
+      <a href="#contact">Contact</a>
+    </nav>
+    <a href="mailto:kalyankris92@gmail.com" class="nav-cta">Let's Talk</a>
+    <button class="menu-btn" id="menuBtn" aria-label="Open menu">
+      <span></span>
+    </button>
+  </div>
+</header>
+
+<div class="mobile-menu" id="mobileMenu">
+  <a href="#services" data-close>Services</a>
+  <a href="#about" data-close>About</a>
+  <a href="#work" data-close>Work</a>
+  <a href="#process" data-close>Process</a>
+  <a href="#contact" data-close>Contact</a>
+  <a href="mailto:kalyankris92@gmail.com" class="menu-cta" data-close>Let's Talk</a>
+</div>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-bg">
+    <img src="https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?w=1600&q=85" alt="Futuristic creative vision" fetchpriority="high">
+  </div>
+  <div class="hero-overlay"></div>
+  <div class="container hero-content">
+    <div class="hero-badge">Creative & Digital Agency</div>
+    <h1>We Build.<br>We Grow.<br><span>We Scale.</span></h1>
+    <p class="hero-sub">Web • Digital • Production • Spatial Design • Influencer • Social Media • Talent Management</p>
+    <div class="hero-actions">
+      <a href="#contact" class="btn btn-primary">Start a Project</a>
+      <a href="#work" class="btn btn-ghost">View Our Work</a>
+    </div>
+    <div class="hero-stats">
+      <div class="stat">
+        <div class="stat-num">150+</div>
+        <div class="stat-label">Projects</div>
+      </div>
+      <div class="stat">
+        <div class="stat-num">98%</div>
+        <div class="stat-label">Satisfaction</div>
+      </div>
+      <div class="stat">
+        <div class="stat-num">40+</div>
+        <div class="stat-label">Brands</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SERVICES -->
+<section id="services">
+  <div class="container">
+    <div class="reveal">
+      <span class="section-label">What We Do</span>
+      <h2 class="section-title">Services built for impact</h2>
+      <p class="section-desc">From pixel-perfect websites to high-converting campaigns and spatial experiences — we craft every layer of your brand presence.</p>
+    </div>
+    <div class="services-grid">
+      <article class="service-card reveal">
+        <div class="service-img">
+          <img src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=800&q=80" alt="Web Development" loading="lazy">
+        </div>
+        <div class="service-body">
+          <div class="service-icon">🌐</div>
+          <h3>Web Development</h3>
+          <p>Lightning-fast, conversion-focused websites and web apps that look stunning on every device.</p>
+        </div>
+      </article>
+      <article class="service-card reveal reveal-delay-1">
+        <div class="service-img">
+          <img src="https://images.unsplash.com/photo-1551434678-e076c223a692?w=800&q=80" alt="Digital Marketing" loading="lazy">
+        </div>
+        <div class="service-body">
+          <div class="service-icon">📈</div>
+          <h3>Digital Marketing</h3>
+          <p>Data-driven strategies that grow your audience, engagement, and revenue across every channel.</p>
+        </div>
+      </article>
+      <article class="service-card reveal reveal-delay-2">
+        <div class="service-img">
+          <img src="https://images.unsplash.com/photo-1492691527719-9d1e07e534b4?w=800&q=80" alt="Production" loading="lazy">
+        </div>
+        <div class="service-body">
+          <div class="service-icon">🎬</div>
+          <h3>Production</h3>
+          <p>Cinematic brand films, product videos, and content that stops the scroll and tells your story.</p>
+        </div>
+      </article>
+      <article class="service-card reveal">
+        <div class="service-img">
+          <img src="https://images.unsplash.com/photo-1633356122544-f134324a6cee?w=800&q=80" alt="Spatial Design" loading="lazy">
+        </div>
+        <div class="service-body">
+          <div class="service-icon">🏗️</div>
+          <h3>Spatial Design</h3>
+          <p>Immersive environments and experiential spaces that blend digital and physical worlds.</p>
+        </div>
+      </article>
+      <article class="service-card reveal reveal-delay-1">
+        <div class="service-img">
+          <img src="https://images.unsplash.com/photo-1611162616475-46b635cb6868?w=800&q=80" alt="Influencer Marketing" loading="lazy">
+        </div>
+        <div class="service-body">
+          <div class="service-icon">⭐</div>
+          <h3>Influencer Marketing</h3>
+          <p>Authentic creator partnerships that amplify reach and build real community trust.</p>
+        </div>
+      </article>
+      <article class="service-card reveal reveal-delay-2">
+        <div class="service-img">
+          <img src="https://images.unsplash.com/photo-1611224923853-80b023f02d71?w=800&q=80" alt="Social Media" loading="lazy">
+        </div>
+        <div class="service-body">
+          <div class="service-icon">📱</div>
+          <h3>Social Media</h3>
+          <p>Strategic content systems and community management that keep your brand top of mind.</p>
+        </div>
+      </article>
+      <article class="service-card reveal" style="grid-column:1/-1;max-width:400px;margin:0 auto;width:100%">
+        <div class="service-img">
+          <img src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?w=800&q=80" alt="Talent Management" loading="lazy">
+        </div>
+        <div class="service-body">
+          <div class="service-icon">🎯</div>
+          <h3>Talent Management</h3>
+          <p>End-to-end talent strategy, branding, and growth for creators and public figures.</p>
+        </div>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section id="about">
+  <div class="container">
+    <div class="about-grid">
+      <div class="about-visual reveal">
+        <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=900&q=80" alt="Creative professional at work" loading="lazy">
+        <div class="about-float">
+          <div class="about-float-num">5+</div>
+          <div class="about-float-text">Years crafting<br>digital experiences</div>
+        </div>
+      </div>
+      <div class="about-content reveal reveal-delay-1">
+        <span class="section-label">Why Zudi</span>
+        <h2 class="section-title">Design with purpose.<br>Build with impact.</h2>
+        <p class="section-desc">We are a full-spectrum creative and digital agency. We don't just deliver projects — we partner with brands to build systems that grow and scale.</p>
+        <div class="about-points">
+          <div class="about-point">
+            <div class="about-point-icon">⚡</div>
+            <div>
+              <h4>Speed without compromise</h4>
+              <p>Agile delivery that never sacrifices quality or attention to detail.</p>
+            </div>
+          </div>
+          <div class="about-point">
+            <div class="about-point-icon">🎨</div>
+            <div>
+              <h4>Human-centered design</h4>
+              <p>Every pixel and every campaign is shaped by real human behavior.</p>
+            </div>
+          </div>
+          <div class="about-point">
+            <div class="about-point-icon">🚀</div>
+            <div>
+              <h4>Built to scale</h4>
+              <p>From startup launch to enterprise growth — systems that evolve with you.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- WORK MARQUEE -->
+<section id="work" class="work-section">
+  <div class="container">
+    <div class="reveal">
+      <span class="section-label">Selected Work</span>
+      <h2 class="section-title">Ideas that moved the needle</h2>
+      <p class="section-desc">A glimpse into the brands and experiences we've helped shape.</p>
+    </div>
+  </div>
+  <div class="marquee-wrap">
+    <div class="marquee">
+      <div class="work-card">
+        <img src="https://images.unsplash.com/photo-1558655146-9f40138edfeb?w=600&q=80" alt="Brand campaign" loading="lazy">
+        <div class="work-card-body">
+          <h4>Fresh Shot Campaign</h4>
+          <span>Production • Social</span>
+        </div>
+      </div>
+      <div class="work-card">
+        <img src="https://images.unsplash.com/photo-1516321318423-f06f85e504b3?w=600&q=80" alt="Web platform" loading="lazy">
+        <div class="work-card-body">
+          <h4>Infinite Vibes Platform</h4>
+          <span>Web • Digital</span>
+        </div>
+      </div>
+      <div class="work-card">
+        <img src="https://images.unsplash.com/photo-1550745165-9bc0b252726f?w=600&q=80" alt="Spatial experience" loading="lazy">
+        <div class="work-card-body">
+          <h4>Speed You Can Feel</h4>
+          <span>Spatial • Brand</span>
+        </div>
+      </div>
+      <div class="work-card">
+        <img src="https://images.unsplash.com/photo-1611162616305-c69b3fa7fbe0?w=600&q=80" alt="Influencer series" loading="lazy">
+        <div class="work-card-body">
+          <h4>Creator Collective</h4>
+          <span>Influencer • Talent</span>
+        </div>
+      </div>
+      <div class="work-card">
+        <img src="https://images.unsplash.com/photo-1467232004584-a241c7c342b2?w=600&q=80" alt="Digital product" loading="lazy">
+        <div class="work-card-body">
+          <h4>One Player Experience</h4>
+          <span>Digital • Product</span>
+        </div>
+      </div>
+      <!-- duplicate for seamless loop -->
+      <div class="work-card">
+        <img src="https://images.unsplash.com/photo-1558655146-9f40138edfeb?w=600&q=80" alt="Brand campaign" loading="lazy">
+        <div class="work-card-body">
+          <h4>Fresh Shot Campaign</h4>
+          <span>Production • Social</span>
+        </div>
+      </div>
+      <div class="work-card">
+        <img src="https://images.unsplash.com/photo-1516321318423-f06f85e504b3?w=600&q=80" alt="Web platform" loading="lazy">
+        <div class="work-card-body">
+          <h4>Infinite Vibes Platform</h4>
+          <span>Web • Digital</span>
+        </div>
+      </div>
+      <div class="work-card">
+        <img src="https://images.unsplash.com/photo-1550745165-9bc0b252726f?w=600&q=80" alt="Spatial experience" loading="lazy">
+        <div class="work-card-body">
+          <h4>Speed You Can Feel</h4>
+          <span>Spatial • Brand</span>
+        </div>
+      </div>
+      <div class="work-card">
+        <img src="https://images.unsplash.com/photo-1611162616305-c69b3fa7fbe0?w=600&q=80" alt="Influencer series" loading="lazy">
+        <div class="work-card-body">
+          <h4>Creator Collective</h4>
+          <span>Influencer • Talent</span>
+        </div>
+      </div>
+      <div class="work-card">
+        <img src="https://images.unsplash.com/photo-1467232004584-a241c7c342b2?w=600&q=80" alt="Digital product" loading="lazy">
+        <div class="work-card-body">
+          <h4>One Player Experience</h4>
+          <span>Digital • Product</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PROCESS -->
+<section id="process">
+  <div class="container">
+    <div class="reveal">
+      <span class="section-label">How We Work</span>
+      <h2 class="section-title">A clear path from idea to impact</h2>
+      <p class="section-desc">No black boxes. Transparent process, sharp execution, measurable results.</p>
+    </div>
+    <div class="process-grid">
+      <div class="process-step reveal">
+        <div class="process-num">01</div>
+        <h3>Discover</h3>
+        <p>Deep dive into your brand, audience, and goals. We map the opportunity.</p>
+      </div>
+      <div class="process-step reveal reveal-delay-1">
+        <div class="process-num">02</div>
+        <h3>Design</h3>
+        <p>Strategy, creative direction, and prototypes that feel inevitable.</p>
+      </div>
+      <div class="process-step reveal reveal-delay-2">
+        <div class="process-num">03</div>
+        <h3>Build</h3>
+        <p>Pixel-perfect execution across web, content, campaigns, and experiences.</p>
+      </div>
+      <div class="process-step reveal reveal-delay-3">
+        <div class="process-num">04</div>
+        <h3>Scale</h3>
+        <p>Launch, measure, iterate. Systems that grow with your ambition.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section id="contact" class="cta-section">
+  <div class="container">
+    <div class="cta-box reveal">
+      <h2>Ready to build something that scales?</h2>
+      <p>Tell us about your project. We'll respond within 24 hours with a clear next step.</p>
+      <div class="cta-actions">
+        <a href="mailto:kalyankris92@gmail.com" class="btn btn-primary">kalyankris92@gmail.com</a>
+        <a href="https://zudi.co.in" target="_blank" rel="noopener" class="btn btn-ghost">Visit zudi.co.in</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <a href="#" class="logo">
+          <span class="logo-mark">Z</span>
+          <span>Zudi</span>
+        </a>
+        <p>We Build. We Grow. We Scale. Creative & digital agency based in India.</p>
+      </div>
+      <div class="footer-col">
+        <h4>Services</h4>
+        <a href="#services">Web Development</a>
+        <a href="#services">Digital Marketing</a>
+        <a href="#services">Production</a>
+        <a href="#services">Spatial Design</a>
+        <a href="#services">Influencer & Talent</a>
+      </div>
+      <div class="footer-col">
+        <h4>Connect</h4>
+        <a href="mailto:kalyankris92@gmail.com">kalyankris92@gmail.com</a>
+        <a href="https://zudi.co.in" target="_blank" rel="noopener">zudi.co.in</a>
+        <a href="https://instagram.com/zudi.in" target="_blank" rel="noopener">Instagram</a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2025 Zudi. All rights reserved.</span>
+      <div class="footer-social">
+        <a href="https://instagram.com/zudi.in" target="_blank" rel="noopener" aria-label="Instagram">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="18" cy="6" r="1" fill="currentColor" stroke="none"/></svg>
+        </a>
+        <a href="mailto:kalyankris92@gmail.com" aria-label="Email">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><path d="M22 6l-10 7L2 6"/></svg>
+        </a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script>
+(function(){
+  const nav = document.getElementById('nav');
+  const menuBtn = document.getElementById('menuBtn');
+  const mobileMenu = document.getElementById('mobileMenu');
+  const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  // Nav scroll
+  let lastScroll = 0;
+  function onScroll(){
+    const y = window.scrollY;
+    if(y > 40) nav.classList.add('scrolled');
+    else nav.classList.remove('scrolled');
+    lastScroll = y;
+  }
+  window.addEventListener('scroll', onScroll, {passive:true});
+  onScroll();
+
+  // Mobile menu
+  menuBtn.addEventListener('click', ()=>{
+    const open = mobileMenu.classList.toggle('open');
+    menuBtn.classList.toggle('open', open);
+    document.body.style.overflow = open ? 'hidden' : '';
+  });
+  mobileMenu.querySelectorAll('[data-close]').forEach(el=>{
+    el.addEventListener('click', ()=>{
+      mobileMenu.classList.remove('open');
+      menuBtn.classList.remove('open');
+      document.body.style.overflow = '';
+    });
+  });
+
+  // Reveal on scroll
+  if(!prefersReduced){
+    const reveals = document.querySelectorAll('.reveal');
+    const io = new IntersectionObserver((entries)=>{
+      entries.forEach(e=>{
+        if(e.isIntersecting){
+          e.target.classList.add('visible');
+          io.unobserve(e.target);
+        }
+      });
+    },{threshold:0.12, rootMargin:'0px 0px -40px 0px'});
+    reveals.forEach(el=>io.observe(el));
+  } else {
+    document.querySelectorAll('.reveal').forEach(el=>el.classList.add('visible'));
+  }
+
+  // Smooth hero parallax (lightweight)
+  if(!prefersReduced){
+    const heroImg = document.querySelector('.hero-bg img');
+    if(heroImg){
+      let ticking = false;
+      window.addEventListener('scroll', ()=>{
+        if(!ticking){
+          requestAnimationFrame(()=>{
+            const y = window.scrollY;
+            if(y < window.innerHeight){
+              heroImg.style.transform = `scale(1.05) translateY(${y * 0.22}px)`;
+            }
+            ticking = false;
+          });
+          ticking = true;
+        }
+      },{passive:true});
+    }
+  }
+})();
+</script>
+</body>
+</html>
